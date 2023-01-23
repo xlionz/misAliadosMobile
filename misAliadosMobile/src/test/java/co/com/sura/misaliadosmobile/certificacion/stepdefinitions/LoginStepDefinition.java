@@ -1,14 +1,15 @@
 package co.com.sura.misaliadosmobile.certificacion.stepdefinitions;
 
+import co.com.sura.misaliadosmobile.certificacion.enums.MsgError;
 import co.com.sura.misaliadosmobile.certificacion.exceptions.ExceptionError;
 import co.com.sura.misaliadosmobile.certificacion.questions.Name;
 import co.com.sura.misaliadosmobile.certificacion.tasks.LogIn;
 import co.com.sura.misaliadosmobile.certificacion.tasks.GoToProfile;
-import co.com.sura.misaliadosmobile.certificacion.utils.DriverManager;
 import co.com.sura.misaliadosmobile.certificacion.utils.ReadFiles;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.hamcrest.core.IsEqual;
 
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
@@ -32,7 +33,7 @@ public class LoginStepDefinition {
     @Then("shoulds see the name in the profile page")
     public void shouldsSeeTheNameInTheProfilePage() {
         theActorInTheSpotlight().should(seeThat(Name.exists())
-                .orComplainWith(ExceptionError.class));
+                .orComplainWith(ExceptionError.class,
+                        Name.nameIsNotEquals(theActorInTheSpotlight())));
     }
-
 }

@@ -7,15 +7,10 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Question;
 import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.ensure.Ensure;
-import net.serenitybdd.screenplay.questions.Text;
 import net.serenitybdd.screenplay.waits.WaitUntil;
 import net.thucydides.core.annotations.Step;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.lang.annotation.Target;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.LockSupport;
 
 import static co.com.sura.misaliadosmobile.certificacion.userinterfaces.ProfilePage.BTN_LICENSE;
 import static co.com.sura.misaliadosmobile.certificacion.userinterfaces.ProfilePage.LBL_NAME_CONTRACTOR;
@@ -32,8 +27,7 @@ public class Name implements Question<Boolean> {
 
     @Step("{0} see the name on the profile.")
     @Override
-    public Boolean answeredBy(Actor actor) {
-
+    public  Boolean answeredBy(Actor actor) {
         String name = actor.recall("INDEPENT_NAME").toString();
 
         actor.attemptsTo(
@@ -41,14 +35,18 @@ public class Name implements Question<Boolean> {
                 Click.on(BTN_LICENSE)
         );
 
-        try {
-            actor.attemptsTo(
-                    WaitUntil.the(LBL_NAME_CONTRACTOR.of(name), isVisible()).forNoMoreThan(10).seconds()
-            );
-        } catch (Exception e) {
-            LOGGER.info(e.toString());
-        }
+        actor.attemptsTo(
+                Ensure.that(LBL_NAME_CONTRACTOR.of(name).resolveFor(actor).getAttribute("content-desc"))
+                        .contains(name)
+        );
 
         return true;
+    }
+
+    public static String nameIsNotEquals(Actor actor){
+        String name = actor.recall("INDEPENT_NAME").toString();
+
+        return String.format(MsgError.MSG_ERROR_TEXT.getMsg(), name,
+                LBL_NAME_CONTRACTOR.of(name).resolveFor(actor).getText());
     }
 }
