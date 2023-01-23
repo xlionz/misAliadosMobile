@@ -46,7 +46,7 @@ public class Name implements Question<Boolean> {
     public static String nameIsNotEquals(Actor actor){
         String name = actor.recall("INDEPENT_NAME").toString();
 
-        return String.format(MsgError.MSG_ERROR_TEXT.getMsg(), name,
-                LBL_NAME_CONTRACTOR.of(name).resolveFor(actor).getText());
+        return String.format(MsgError.MSG_ERROR_TEXT.getMsg(), name, LBL_NAME_CONTRACTOR.of(name)
+                .resolveFor(actor).getAttribute("content-desc"));
     }
 }

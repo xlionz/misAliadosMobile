@@ -1,6 +1,5 @@
 package co.com.sura.misaliadosmobile.certificacion.stepdefinitions;
 
-import co.com.sura.misaliadosmobile.certificacion.enums.MsgError;
 import co.com.sura.misaliadosmobile.certificacion.exceptions.ExceptionError;
 import co.com.sura.misaliadosmobile.certificacion.questions.Name;
 import co.com.sura.misaliadosmobile.certificacion.tasks.LogIn;
@@ -9,7 +8,6 @@ import co.com.sura.misaliadosmobile.certificacion.utils.ReadFiles;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.hamcrest.core.IsEqual;
 
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
